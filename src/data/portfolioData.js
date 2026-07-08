@@ -2,17 +2,19 @@ export const personalInfo = {
   name: "Suyambu Raja A",
   title: "Full Stack Developer",
   tagline: "I build things for the web.",
-  bio: "Final-year CSE student with a passion for crafting clean, scalable web applications. I specialize in React and Django, with hands-on experience in machine learning and cloud deployment. Currently seeking full-time opportunities to create impactful software.",
+  bio: "Final-year CSE student with a passion for crafting clean, scalable web applications. I specialize in React and Django, with hands-on experience in machine learning and deployment. Currently seeking full-time opportunities to create impactful software.",
   email: "asuyamburaja35@gmail.com",
   github: "https://github.com/suyambu-raja",
   linkedin: "https://linkedin.com/in/suyambu-raja-a-088994293",
-  resumeUrl: "/Suyambu_Resume.pdf",
+  leetcode: "https://leetcode.com/u/5z8YMTYoQr/",
+  resumeUrl: "/Suyambu_Resume_Updated1.pdf",
 };
 
 export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
+  { label: "LeetCode", href: "#leetcode" },
   { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
@@ -20,6 +22,28 @@ export const navLinks = [
 export const projects = [
   {
     id: 1,
+    title: "Lost and Found Ai",
+    description:
+      "An AI-powered lost-and-found platform that matches lost and found reports using semantic text, image, and location similarity. Features privacy-first ownership verification, OTP-secured handovers, and direct UPI reward payments.",
+    tags: ["React.js", "Django", "JWT Auth", "Postgres SQL", "CLIP", "EasyOCR"],
+    highlight: "Local AI matching — Sentence-Transformers + CLIP + EasyOCR",
+    github: "https://github.com/SanjayRam936/Lost_And_Found.git",
+    demo: "https://lost-and-found-gilt-nine.vercel.app/",
+    image: null,
+  },
+  {
+    id: 2,
+    title: "Invoice Generator",
+    description:
+      "A React web app that turns spreadsheets into polished invoices in bulk — upload an Excel file, map columns to a template, and generate print-ready PDFs for every row, with batch ZIP export and cloud-synced data sources.",
+    tags: ["React.js", "Supabase", "React-pdf", "xlsx"],
+    highlight: "Spreadsheet-to-PDF batch generation with live preview",
+    github: "https://github.com/suyambu-raja/invoice-flow.git",
+    demo: "https://invoice-flow-69tk.onrender.com",
+    image: null,
+  },
+  {
+    id: 3,
     title: "YouTube Clone",
     description:
       "A fully functional YouTube clone built with React.js that integrates the YouTube Data API for real-time search, video playback, and channel information display.",
@@ -30,7 +54,7 @@ export const projects = [
     image: null,
   },
   {
-    id: 2,
+    id: 4,
     title: "Smart Agriculture PWA",
     description:
       "A progressive web app for smart farming featuring crop disease detection powered by a custom TensorFlow model, bilingual support (English & Tamil), and a Django REST backend.",
@@ -41,7 +65,7 @@ export const projects = [
     image: null,
   },
   {
-    id: 3,
+    id: 5,
     title: "Netflix Clone",
     description:
       "A fully functional Netflix clone built with React.js that integrates the TMDB API for real-time search, video playback.",
@@ -52,7 +76,7 @@ export const projects = [
     image: null,
   },
   {
-    id: 4,
+    id: 6,
     title: "Amazon Clone",
     description:
       " Amazon clone built with HTML, CSS, JavaScript.",
