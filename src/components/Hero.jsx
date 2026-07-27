@@ -1,8 +1,21 @@
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, Download } from "lucide-react";
 import { personalInfo, techStrip } from "../data/portfolioData";
 
 export default function Hero() {
+  const [showScroll, setShowScroll] = useState(true);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScroll(window.scrollY < 80);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleScrollToProjects = (e) => {
     e.preventDefault();
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
@@ -11,56 +24,15 @@ export default function Hero() {
   return (
     <section
       id="home"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        paddingTop: "var(--nav-height)",
-        position: "relative",
-        overflow: "hidden",
-      }}
+      className="hero-section"
     >
       {/* Background gradient orbs */}
-      <div
-        style={{
-          position: "absolute",
-          top: "-20%",
-          right: "-10%",
-          width: "600px",
-          height: "600px",
-          background:
-            "radial-gradient(circle, rgba(26, 188, 176, 0.06) 0%, transparent 70%)",
-          borderRadius: "50%",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: "-30%",
-          left: "-15%",
-          width: "500px",
-          height: "500px",
-          background:
-            "radial-gradient(circle, rgba(26, 188, 176, 0.04) 0%, transparent 70%)",
-          borderRadius: "50%",
-          pointerEvents: "none",
-        }}
-      />
+      <div className="hero-orb hero-orb--right" />
+      <div className="hero-orb hero-orb--left" />
 
-      <div
-        className="container"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr",
-          gap: "48px",
-          alignItems: "center",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        {/* Content */}
-        <div>
+      <div className="container hero-layout">
+        {/* Left Column — Text Content */}
+        <div className="hero-text">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -136,55 +108,90 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
-            style={{
-              marginTop: "56px",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "10px",
-            }}
+            className="hero-tech-strip"
           >
             {techStrip.map((tech) => (
-              <span key={tech} className="badge">
+              <span key={tech} className="badge" style={{ flexShrink: 0 }}>
                 {tech}
               </span>
             ))}
           </motion.div>
         </div>
+
+        {/* Right Column — Profile Image Frame */}
+        <motion.div
+          className="hero-image-col"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, duration: 0.8, type: "spring", stiffness: 100 }}
+        >
+          <div className="hero-profile-container">
+            {/* Radial glow behind */}
+            <div className="hero-profile-glow" />
+
+            {/* Rotating gradient border wrapper */}
+            <div className="hero-profile-border-wrapper">
+              <motion.div
+                className="hero-profile-gradient-spin"
+                animate={{ rotate: [0, 360] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+              />
+            </div>
+
+            {/* Inner frame */}
+            <div className="hero-profile-inner">
+              {!imgError ? (
+                <img
+                  src={personalInfo.avatarUrl || "/profile.jpg"}
+                  alt={personalInfo.name}
+                  className="hero-profile-image"
+                  onLoad={() => setImgLoaded(true)}
+                  onError={() => setImgError(true)}
+                  style={{ display: imgLoaded ? "block" : "none" }}
+                />
+              ) : null}
+
+              {/* Initials fallback — always visible if image fails or hasn't loaded */}
+              {(imgError || !imgLoaded) && (
+                <div className="hero-profile-initials">
+                  SR
+                </div>
+              )}
+            </div>
+
+          </div>
+        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        style={{
-          position: "absolute",
-          bottom: "40px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "8px",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "0.7rem",
-            letterSpacing: "0.15em",
-            color: "var(--color-muted)",
-            textTransform: "uppercase",
-          }}
-        >
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-        >
-          <ArrowDown size={16} style={{ color: "var(--color-teal)" }} />
-        </motion.div>
-      </motion.div>
+      {/* Scroll indicator — disappears on scroll */}
+      <AnimatePresence>
+        {showScroll && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="hero-scroll-indicator"
+          >
+            <span
+              style={{
+                fontSize: "0.7rem",
+                letterSpacing: "0.15em",
+                color: "var(--color-muted)",
+                textTransform: "uppercase",
+              }}
+            >
+              Scroll
+            </span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            >
+              <ArrowDown size={16} style={{ color: "var(--color-teal)" }} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

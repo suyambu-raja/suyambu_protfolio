@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, Award } from "lucide-react";
+import { Briefcase, GraduationCap, BookOpen, Laptop, Building2 } from "lucide-react";
 import { experiences } from "../data/portfolioData";
 
 const iconMap = {
-  work: Briefcase,
-  education: GraduationCap,
-  certification: Award,
+  GraduationCap: GraduationCap,
+  BookOpen: BookOpen,
+  Briefcase: Briefcase,
+  Laptop: Laptop,
 };
 
 const entryVariants = {
@@ -13,7 +14,7 @@ const entryVariants = {
   visible: (i) => ({
     opacity: 1,
     x: 0,
-    transition: { delay: i * 0.2, duration: 0.6, ease: "easeOut" },
+    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" },
   }),
 };
 
@@ -30,35 +31,16 @@ export default function Experience() {
           <p className="section-label">Journey</p>
           <h2 className="section-title">Experience & Education</h2>
           <p className="section-subtitle">
-            My professional timeline — internships, education, and certifications
-            that have shaped my development career.
+            My professional timeline — internships, education, and freelance projects.
           </p>
         </motion.div>
 
         {/* Timeline */}
-        <div
-          style={{
-            marginTop: "48px",
-            position: "relative",
-            paddingLeft: "40px",
-          }}
-        >
-          {/* Vertical line */}
-          <div
-            style={{
-              position: "absolute",
-              left: "15px",
-              top: "8px",
-              bottom: "8px",
-              width: "2px",
-              background:
-                "linear-gradient(180deg, var(--color-teal) 0%, rgba(26, 188, 176, 0.1) 100%)",
-              borderRadius: "1px",
-            }}
-          />
+        <div className="timeline-container">
+          <div className="timeline-line" />
 
           {experiences.map((exp, i) => {
-            const Icon = iconMap[exp.type] || Briefcase;
+            const Icon = iconMap[exp.icon] || Briefcase;
 
             return (
               <motion.div
@@ -68,113 +50,121 @@ export default function Experience() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
                 variants={entryVariants}
-                style={{
-                  position: "relative",
-                  marginBottom: i < experiences.length - 1 ? "40px" : "0",
-                }}
+                className="timeline-item"
               >
-                {/* Dot */}
-                <div
-                  style={{
-                    position: "absolute",
-                    left: "-33px",
-                    top: "4px",
-                    width: "20px",
-                    height: "20px",
-                    borderRadius: "50%",
-                    background: "var(--color-navy)",
-                    border: "2px solid var(--color-teal)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    zIndex: 2,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "8px",
-                      height: "8px",
-                      borderRadius: "50%",
-                      background: "var(--color-teal)",
-                    }}
-                  />
-                </div>
+                <div className="timeline-dot" />
 
-                {/* Card */}
-                <div className="card">
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <Icon
-                      size={18}
-                      style={{ color: "var(--color-teal)", flexShrink: 0 }}
-                    />
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-heading)",
-                        fontSize: "1.1rem",
-                        fontWeight: 600,
-                        color: "var(--color-offwhite)",
-                      }}
-                    >
-                      {exp.title}
-                    </h3>
+                <div className="timeline-card" style={{ position: "relative" }}>
+                  {/* Top Row: Icon + Bold White Heading */}
+                  <div className="timeline-header">
+                    <div className="timeline-icon">
+                      <Icon size={20} />
+                    </div>
+                    <div style={{ flex: 1, paddingRight: exp.logoPlaceholder ? "48px" : "0" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                        <h3 className="timeline-title">{exp.title}</h3>
+                        {exp.badge && (
+                          <span
+                            style={{
+                              display: "inline-block",
+                              padding: "3px 10px",
+                              fontSize: "0.7rem",
+                              fontWeight: 700,
+                              borderRadius: "99px",
+                              background: "rgba(245, 166, 35, 0.12)",
+                              color: "#F5A623",
+                              border: "1px solid rgba(245, 166, 35, 0.3)",
+                            }}
+                          >
+                            {exp.badge}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Second Row: Institution / Organization in muted gray */}
+                      {exp.organization && (
+                        <p className="timeline-org">{exp.organization}</p>
+                      )}
+                    </div>
                   </div>
 
-                  {exp.organization && (
-                    <p
+                  {/* Far right Company Logo Placeholder (for Card 3) */}
+                  {exp.logoPlaceholder && (
+                    <div
                       style={{
-                        fontSize: "0.9rem",
-                        color: "var(--color-teal)",
-                        fontWeight: 500,
-                        marginBottom: "4px",
+                        position: "absolute",
+                        top: "24px",
+                        right: "24px",
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "8px",
+                        background: "rgba(232,237,242,0.05)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        border: "1px solid rgba(232,237,242,0.1)",
                       }}
                     >
-                      {exp.organization}
-                    </p>
+                      <Building2 size={20} style={{ color: "#8A9BB0" }} />
+                    </div>
                   )}
 
-                  {exp.duration && (
-                    <p
-                      style={{
-                        fontSize: "0.8rem",
-                        color: "var(--color-muted)",
-                        marginBottom: "10px",
-                      }}
-                    >
-                      {exp.duration}
-                    </p>
+                  {/* Third Row: Duration Badge + Status / Type Badge Side by Side */}
+                  {(exp.duration || exp.status || exp.type === "work") && (
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "12px", marginBottom: "8px" }}>
+                      {exp.duration && <span className="timeline-date">{exp.duration}</span>}
+                      {exp.status && (
+                        <span
+                          style={{
+                            fontSize: "0.75rem",
+                            fontWeight: 700,
+                            color: exp.statusColor || "#1ABCB0",
+                            background: "rgba(26,188,176,0.08)",
+                            padding: "3px 10px",
+                            borderRadius: "99px",
+                            border: `1px solid ${exp.statusColor || "#1ABCB0"}40`,
+                          }}
+                        >
+                          {exp.status}
+                        </span>
+                      )}
+                      {exp.type === "work" && (
+                        <span
+                          style={{
+                            fontSize: "0.75rem",
+                            fontWeight: 700,
+                            color: "#1ABCB0",
+                            background: "rgba(26,188,176,0.08)",
+                            padding: "3px 10px",
+                            borderRadius: "99px",
+                            border: "1px solid rgba(26,188,176,0.2)",
+                          }}
+                        >
+                          Internship
+                        </span>
+                      )}
+                    </div>
                   )}
 
+                  {/* Fourth Row: Detail text (e.g. CGPA / Percentage) in small white text */}
                   {exp.description && (
-                    <p
-                      style={{
-                        fontSize: "0.88rem",
-                        color: "var(--color-muted)",
-                        lineHeight: 1.65,
-                        marginBottom:
-                          exp.tech?.length || exp.certifications?.length
-                            ? "14px"
-                            : "0",
-                      }}
-                    >
+                    <p style={{ fontSize: "0.85rem", color: "#E8EDF2", marginTop: "4px" }}>
                       {exp.description}
                     </p>
                   )}
 
+                  {/* Bullets Row (for Card 3) */}
+                  {exp.bullets && (
+                    <ul className="timeline-bullets timeline-body" style={{ marginTop: "10px" }}>
+                      {exp.bullets.map((bullet, idx) => (
+                        <li key={idx}>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Tech Tags Row (for Card 3) */}
                   {exp.tech && exp.tech.length > 0 && (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "8px",
-                      }}
-                    >
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "14px" }}>
                       {exp.tech.map((t) => (
                         <span key={t} className="badge">
                           {t}
@@ -183,40 +173,61 @@ export default function Experience() {
                     </div>
                   )}
 
-                  {exp.certifications && exp.certifications.length > 0 && (
-                    <ul
-                      style={{
-                        listStyle: "none",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "8px",
-                      }}
-                    >
-                      {exp.certifications.map((cert) => (
-                        <li
-                          key={cert}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            fontSize: "0.88rem",
-                            color: "var(--color-muted)",
-                          }}
-                        >
-                          <span
-                            style={{
-                              display: "inline-block",
-                              width: "6px",
-                              height: "6px",
-                              borderRadius: "50%",
-                              background: "var(--color-teal)",
-                              flexShrink: 0,
-                            }}
-                          />
-                          {cert}
-                        </li>
+                  {/* Sub-cards Row (for Card 4 — Freelance Work) */}
+                  {exp.projects && (
+                    <div className="freelance-grid">
+                      {exp.projects.map((proj, idx) => (
+                        <div key={idx} className="freelance-card">
+                          <div className="freelance-card-header">
+                            <div>
+                              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                <h4 style={{ fontFamily: "var(--font-heading)", fontSize: "0.95rem", fontWeight: 700, color: "#E8EDF2" }}>
+                                  {proj.name}
+                                </h4>
+                                {proj.status && (
+                                  <span
+                                    style={{
+                                      fontSize: "0.7rem",
+                                      fontWeight: 700,
+                                      color: proj.statusColor,
+                                      padding: "2px 8px",
+                                      borderRadius: "99px",
+                                      border: `1px solid ${proj.statusColor}40`,
+                                      background: "rgba(232,237,242,0.04)",
+                                    }}
+                                  >
+                                    {proj.status}
+                                  </span>
+                                )}
+                              </div>
+                              <p style={{ fontSize: "0.8rem", color: "#8A9BB0", marginTop: "2px" }}>
+                                Client: {proj.client}
+                              </p>
+                            </div>
+                          </div>
+                          <p style={{ fontSize: "0.85rem", color: "#8A9BB0", lineHeight: 1.5, marginTop: "8px" }}>
+                            {proj.work}
+                          </p>
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "10px" }}>
+                            {proj.stack.map((s) => (
+                              <span
+                                key={s}
+                                style={{
+                                  fontSize: "0.7rem",
+                                  padding: "2px 8px",
+                                  background: "rgba(232,237,242,0.05)",
+                                  borderRadius: "4px",
+                                  color: "#8A9BB0",
+                                  border: "1px solid rgba(232,237,242,0.1)",
+                                }}
+                              >
+                                {s}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   )}
                 </div>
               </motion.div>
@@ -227,3 +238,4 @@ export default function Experience() {
     </section>
   );
 }
+

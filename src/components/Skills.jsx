@@ -1,70 +1,52 @@
 import { motion } from "framer-motion";
 import { skillGroups } from "../data/portfolioData";
 
-function SkillBar({ name, level, delay }) {
-  return (
-    <div style={{ marginBottom: "14px" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "6px",
-        }}
+/* Custom SVG icons for skills without Devicon entries */
+const customIcons = {
+  jwt: (
+    <svg viewBox="0 0 40 40" className="skill-custom-icon">
+      <circle cx="20" cy="20" r="18" fill="none" stroke="#FB015B" strokeWidth="2" />
+      <text
+        x="20"
+        y="21"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fill="#FB015B"
+        fontSize="10"
+        fontWeight="700"
+        fontFamily="var(--font-heading)"
       >
-        <span
-          style={{
-            fontSize: "0.82rem",
-            fontWeight: 500,
-            color: "var(--color-offwhite)",
-          }}
-        >
-          {name}
-        </span>
-        <span
-          style={{
-            fontSize: "0.75rem",
-            color: "var(--color-muted)",
-            fontWeight: 500,
-          }}
-        >
-          {level}%
-        </span>
-      </div>
-      <div
-        style={{
-          height: "4px",
-          borderRadius: "2px",
-          background: "rgba(232, 237, 242, 0.06)",
-          overflow: "hidden",
-        }}
+        JWT
+      </text>
+    </svg>
+  ),
+  huggingface: (
+    <svg viewBox="0 0 40 40" className="skill-custom-icon">
+      <text
+        x="20"
+        y="22"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize="28"
       >
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ delay: delay, duration: 0.8, ease: "easeOut" }}
-          style={{
-            height: "100%",
-            borderRadius: "2px",
-            background:
-              "linear-gradient(90deg, var(--color-teal), rgba(26, 188, 176, 0.5))",
-          }}
-        />
-      </div>
-    </div>
-  );
-}
+        🤗
+      </text>
+    </svg>
+  ),
+};
 
-const cardVariants = {
+const groupVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
+    transition: { delay: i * 0.12, duration: 0.5, ease: "easeOut" },
   }),
 };
 
 export default function Skills() {
+  let globalIndex = 0;
+
   return (
     <section id="skills" className="section">
       <div className="container">
@@ -82,47 +64,46 @@ export default function Skills() {
           </p>
         </motion.div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))",
-            gap: "24px",
-            marginTop: "48px",
-          }}
-        >
-          {skillGroups.map((group, groupIndex) => (
-            <motion.div
-              key={group.title}
-              className="card"
-              custom={groupIndex}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              variants={cardVariants}
-            >
-              <h3
-                style={{
-                  fontFamily: "var(--font-heading)",
-                  fontSize: "1rem",
-                  fontWeight: 600,
-                  color: "var(--color-teal)",
-                  marginBottom: "20px",
-                  letterSpacing: "0.03em",
-                }}
-              >
-                {group.title}
-              </h3>
+        <div className="skills-grid-container">
+          {skillGroups.map((group, groupIndex) => {
+            const groupCards = group.skills.map((skill) => {
+              const cardIndex = globalIndex++;
+              return { ...skill, cardIndex };
+            });
 
-              {group.skills.map((skill, skillIndex) => (
-                <SkillBar
-                  key={skill.name}
-                  name={skill.name}
-                  level={skill.level}
-                  delay={groupIndex * 0.1 + skillIndex * 0.08}
-                />
-              ))}
-            </motion.div>
-          ))}
+            return (
+              <motion.div
+                key={group.title}
+                className="skill-category"
+                custom={groupIndex}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+                variants={groupVariants}
+              >
+                <span className="skill-category-label">{group.title}</span>
+
+                <div className="skill-icon-row">
+                  {groupCards.map((skill) => (
+                    <div
+                      key={`${group.title}-${skill.name}`}
+                      className="skill-float-card"
+                      style={{
+                        animationDelay: `${skill.cardIndex * 0.35}s`,
+                      }}
+                    >
+                      {skill.icon ? (
+                        <i className={`${skill.icon} skill-icon`} />
+                      ) : (
+                        customIcons[skill.customIcon]
+                      )}
+                      <span className="skill-name">{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

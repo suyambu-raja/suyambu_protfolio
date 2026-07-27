@@ -7,14 +7,15 @@ export const personalInfo = {
   github: "https://github.com/suyambu-raja",
   linkedin: "https://linkedin.com/in/suyambu-raja-a-088994293",
   leetcode: "https://leetcode.com/u/5z8YMTYoQr/",
-  resumeUrl: "/Suyambu_Resume_Updated1.pdf",
+  resumeUrl: "/Suyambu_Resume_Updated.pdf",
+  avatarUrl: "/profile.jpg",
 };
 
 export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
-  { label: "LeetCode", href: "#leetcode" },
+  { label: "Achievements", href: "#achievements" },
   { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
@@ -29,6 +30,7 @@ export const projects = [
     highlight: "Local AI matching — Sentence-Transformers + CLIP + EasyOCR",
     github: "https://github.com/SanjayRam936/Lost_And_Found.git",
     demo: "https://lost-and-found-gilt-nine.vercel.app/",
+    status: "live",
     image: null,
   },
   {
@@ -40,6 +42,7 @@ export const projects = [
     highlight: "Spreadsheet-to-PDF batch generation with live preview",
     github: "https://github.com/suyambu-raja/invoice-flow.git",
     demo: "https://invoice-flow-69tk.onrender.com",
+    status: "live",
     image: null,
   },
   {
@@ -51,6 +54,7 @@ export const projects = [
     highlight: "API integration — live demo deployed",
     github: "https://github.com/suyambu-raja/youtube-clone-008",
     demo: "https://youtube-clone-800.netlify.app/",
+    status: "live",
     image: null,
   },
   {
@@ -62,6 +66,7 @@ export const projects = [
     highlight: "Tensorflow Convolutional Neural Network (CNN) model + bilingual",
     github: "https://github.com/suyambu-raja/Smart_Agri_Disease_Detection",
     demo: "https://smart-agri-disease-detection.netlify.app/",
+    status: "live",
     image: null,
   },
   {
@@ -73,6 +78,7 @@ export const projects = [
     highlight: "API integration + netflix UI design",
     github: "https://github.com/suyambu-raja/Netflix-clone",
     demo: "https://neflix-clone-007.netlify.app",
+    status: "live",
     image: null,
   },
   {
@@ -84,87 +90,141 @@ export const projects = [
     highlight: "Advanced level javaScript and DOM manipulation",
     github: "https://github.com/suyambu-raja/amazon-project-with-javaScript",
     demo: "https://amazon-clone-with-js.netlify.app/",
+    status: "live",
     image: null,
   },
-  
-
 ];
 
 export const skillGroups = [
   {
     title: "Frontend",
     skills: [
-      { name: "React.js", level: 90 },
-      { name: "HTML / CSS", level: 95 },
-      { name: "JavaScript", level: 88 },
+      { name: "React.js", icon: "devicon-react-original colored" },
+      { name: "HTML/CSS", icon: "devicon-html5-plain colored" },
+      { name: "JavaScript", icon: "devicon-javascript-plain colored" },
     ],
   },
   {
     title: "Backend",
     skills: [
-      { name: "Django", level: 82 },
-      { name: "REST APIs", level: 85 },
+      { name: "Django", icon: "devicon-django-plain" },
+      { name: "REST APIs", icon: "devicon-fastapi-plain colored" },
+      { name: "JWT", icon: null, customIcon: "jwt" },
     ],
   },
   {
     title: "Languages",
     skills: [
-      { name: "Python", level: 90 },
-      { name: "Java", level: 78 },
-      { name: "JavaScript", level: 88 },
-      { name: "C", level: 70 },
+      { name: "Python", icon: "devicon-python-plain" },
+      { name: "Java", icon: "devicon-java-plain colored" },
+      { name: "JavaScript", icon: "devicon-javascript-plain colored" },
+      { name: "C", icon: "devicon-c-plain" },
     ],
   },
   {
     title: "Database",
     skills: [
-      { name: "MySQL", level: 85 },
-      { name: "SQL", level: 80 },
-      { name: "MongoDB", level: 80},
+      { name: "MySQL", icon: "devicon-mysql-plain colored" },
+      { name: "SQL", icon: "devicon-azuresqldatabase-plain colored" },
+      { name: "MongoDB", icon: "devicon-mongodb-plain colored" },
+      { name: "Supabase", icon: "devicon-supabase-plain colored" },
+      { name: "Firebase", icon: "devicon-firebase-plain colored" },
     ],
   },
   {
     title: "Tools",
     skills: [
-      { name: "Docker", level: 80},
-      { name: "Git / GitHub", level: 90 },
-      { name: "VS Code", level: 95 },
-      { name: "Render / Netlify", level: 80 },
-      { name: "Figma", level: 60 },
+      { name: "Docker", icon: "devicon-docker-plain colored" },
+      { name: "Git/GitHub", icon: "devicon-git-plain colored" },
+      { name: "Postman", icon: "devicon-postman-plain colored" },
+      { name: "Figma", icon: "devicon-figma-plain colored" },
+      { name: "Hugging Face", icon: null, customIcon: "huggingface" },
     ],
   },
 ];
 
 export const experiences = [
   {
-    type: "work",
-    title: "Developer Intern",
-    organization: "iTTS (Intelligent Translation & Technology Solutions)",
-    duration: "Jun 2025 – Present",
-    description:
-      "Working on real-time translation pipeline optimization, WebRTC media systems, and full-stack development using React, Django, and Python.",
-    tech: ["React", "Django", "Python", "WebRTC"],
+    type: "education",
+    title: "B.E. Computer Science Engineering",
+    organization: "Prathyusha Engineering College",
+    duration: "2023 – 2027",
+    status: "Final year student",
+    statusColor: "var(--color-teal)",
+    description: "CGPA: 8.18",
+    icon: "GraduationCap",
   },
   {
     type: "education",
-    title: "B.E. Computer Science & Engineering",
-    organization: "Prathyusha Engineering College",
-    duration: "2022 – 2026",
-    description:
-      "Final-year student with focus on web development, machine learning, and software engineering. Actively involved in coding clubs and hackathons.",
-    tech: [],
+    title: "12th Standard (HSC)",
+    duration: "2023",
+    description: "Percentage: 82.6%",
+    icon: "BookOpen",
   },
   {
-    type: "certification",
-    title: "Certifications",
-    organization: "",
-    duration: "",
-    description: "",
-    certifications: [
-      "NPTEL — Programming in Python",
-      "NPTEL — Database Management system", 
-      "Google — Digital Marketing Fundamentals",
+    type: "work",
+    title: "Web Developer Intern",
+    organization: "iDAS Skill Academy",
+    duration: "June 2026 – July 2026",
+    tech: ["React.js", "Django", "Web Design"],
+    bullets: [
+      "Built reusable components and modern interfaces using React.js.",
+      "Implemented SEO best practices and semantic HTML.",
+      "Designed clean, responsive layouts using modern CSS.",
     ],
+    icon: "Briefcase",
+    logoPlaceholder: true,
+  },
+  {
+    type: "freelance",
+    title: "Freelance Work",
+    badge: "Independent",
+    icon: "Laptop",
+    projects: [
+      {
+        name: "Organic Fruit Box",
+        client: "Fruit Shop",
+        stack: ["React", "Vite"],
+        work: "Build an organic fruit box website for online ordering of fruits.",
+        status: "Completed",
+        statusColor: "var(--color-teal)",
+      },
+      {
+        name: "Invoice Flow",
+        client: "Travel Agency",
+        stack: ["React", "Vite", "Supabase"],
+        work: "Bulk invoice generation from Excel, PDF export, Supabase Auth, deployed on Render with custom domain.",
+        status: "Completed",
+        statusColor: "var(--color-teal)",
+      },
+      {
+        name: "WordPress Redesign",
+        client: "WBR Labs (wbrlabs.in)",
+        stack: ["WordPress", "Custom CSS"],
+        work: "Full site redesign, performance optimization.",
+        status: "In Progress",
+        statusColor: "#F5C542",
+      },
+    ],
+  },
+];
+
+export const achievements = [
+  {
+    category: "hackathon",
+    event: "Codeathon 4.0",
+    result: "Special Price",
+    organizer: "Prathyusha Engineering College",
+    description: "Developed a smart agri AI web app with AI voice assistance voice call, Agri news updates, yield prediction, crop disease detection, weather data for farmers in multilingual language.",
+    image: "/images/codeathon4.jpg",
+  },
+  {
+    category: "hackathon",
+    event: "HackFest 2023",
+    result: "Special Prize",
+    organizer: "Prathyusha Engineering College",
+    year: 2023,
+    description: "Created a food waste management web app by connecting hotels and food provide with the trusts to donate the excess food to the needy people",
   },
 ];
 
