@@ -443,10 +443,8 @@ export default function LeetCode() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="card"
+          className="card leetcode-card-wrapper"
           style={{
-            marginTop: "48px",
-            padding: "40px",
             background:
               "linear-gradient(135deg, var(--color-navy-light) 0%, rgba(13, 27, 42, 0.8) 100%)",
             border: "1px solid rgba(26, 188, 176, 0.12)",
@@ -648,9 +646,26 @@ export default function LeetCode() {
 
       {/* Responsive styles */}
       <style>{`
+        .leetcode-card-wrapper {
+          padding: 20px 16px !important;
+          margin-top: 32px !important;
+        }
+        @media (min-width: 640px) {
+          .leetcode-card-wrapper {
+            padding: 32px !important;
+            margin-top: 40px !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .leetcode-card-wrapper {
+            padding: 40px !important;
+            margin-top: 48px !important;
+          }
+        }
         @media (max-width: 900px) {
           #leetcode .leetcode-grid {
             grid-template-columns: 1fr 1fr !important;
+            gap: 24px !important;
           }
           #leetcode .leetcode-grid > div:last-child {
             grid-column: 1 / -1;
@@ -659,7 +674,11 @@ export default function LeetCode() {
         @media (max-width: 580px) {
           #leetcode .leetcode-grid {
             grid-template-columns: 1fr !important;
-            gap: 32px !important;
+            gap: 28px !important;
+            justify-items: center;
+          }
+          #leetcode .leetcode-grid > div {
+            width: 100%;
           }
         }
       `}</style>

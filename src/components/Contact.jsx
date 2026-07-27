@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Send, Loader2, CheckCircle, AlertCircle, X } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { personalInfo } from "../data/portfolioData";
@@ -27,109 +27,141 @@ const contactLinks = [
 ];
 
 export default function Contact() {
+  const formRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [status, setStatus] = useState("idle"); // "idle" | "loading" | "success" | "error"
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email";
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+
+    if (!trimmedName) {
+      newErrors.name = "Full Name is required";
+    } else if (trimmedName.length < 2) {
+      newErrors.name = "Full Name must be at least 2 characters";
     }
-    if (!formData.message.trim()) newErrors.message = "Message is required";
+
+    if (!trimmedEmail) {
+      newErrors.email = "Email Address is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    if (!trimmedMessage) {
+      newErrors.message = "Message is required";
+    } else if (trimmedMessage.length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (status === "loading") return;
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
+
     setErrors({});
-    setStatus("sending");
+    setStatus("loading");
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
 
-    try {
-      if (serviceId && templateId && publicKey) {
-        // Send email via EmailJS
+    const isEmailJSConfigured =
+      serviceId &&
+      templateId &&
+      publicKey &&
+      !serviceId.includes("your_") &&
+      !templateId.includes("your_") &&
+      !publicKey.includes("your_");
+
+    let sentSuccessfully = false;
+
+    // 1. Try EmailJS if valid credentials are configured in .env
+    if (isEmailJSConfigured) {
+      try {
         await emailjs.send(
           serviceId,
           templateId,
           {
-            from_name: formData.name,
-            from_email: formData.email,
-            message: formData.message,
+            from_name: formData.name.trim(),
+            from_email: formData.email.trim(),
+            message: formData.message.trim(),
             to_email: personalInfo.email,
-            reply_to: formData.email,
+            reply_to: formData.email.trim(),
           },
           publicKey
         );
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setStatus("idle"), 4000);
-      } else {
-        // Send email via FormSubmit AJAX endpoint for https://suyambu-protfolio.vercel.app/
-        const res = await fetch(`https://formsubmit.co/ajax/${personalInfo.email}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-            _subject: `New Portfolio Inquiry from ${formData.name}`,
-            _captcha: "false",
-            _template: "table",
-            _url: "https://suyambu-protfolio.vercel.app/",
-          }),
-        }).catch(() => null);
+        sentSuccessfully = true;
+      } catch (err) {
+        console.warn("EmailJS submission failed, trying fallback...", err);
+      }
+    }
+
+    // 2. Fallback to FormSubmit AJAX if EmailJS is unconfigured or failed
+    if (!sentSuccessfully) {
+      try {
+        const res = await fetch(
+          `https://formsubmit.co/ajax/${personalInfo.email}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              name: formData.name.trim(),
+              email: formData.email.trim(),
+              message: formData.message.trim(),
+              _subject: `New Portfolio Message from ${formData.name.trim()}`,
+              _captcha: "false",
+              _template: "table",
+            }),
+          }
+        ).catch(() => null);
 
         if (res && res.ok) {
-          const data = await res.json().catch(() => ({}));
-          console.log("FormSubmit response:", data);
-          setStatus("success");
-          setFormData({ name: "", email: "", message: "" });
-          setTimeout(() => setStatus("idle"), 4000);
-        } else {
-          // Direct mailto fallback if network or endpoint fails
-          const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-            "Portfolio Message from " + formData.name
-          )}&body=${encodeURIComponent(
-            `Hi Suyambu,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
-          )}`;
-          window.location.href = mailtoUrl;
-
-          setStatus("success");
-          setFormData({ name: "", email: "", message: "" });
-          setTimeout(() => setStatus("idle"), 4000);
+          sentSuccessfully = true;
         }
+      } catch (err) {
+        console.warn("FormSubmit fallback failed:", err);
       }
-    } catch (err) {
-      console.error("Form submit error:", err);
+    }
+
+    // 3. Handle response state
+    if (sentSuccessfully) {
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => {
+        setStatus((prev) => (prev === "success" ? "idle" : prev));
+      }, 4000);
+    } else {
+      // 4. Ultimate Mailto fallback if both endpoints are blocked by network
       const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-        "Portfolio Message from " + formData.name
+        "Portfolio Inquiry from " + formData.name.trim()
       )}&body=${encodeURIComponent(
-        `Hi Suyambu,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
+        `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`
       )}`;
       window.location.href = mailtoUrl;
 
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setStatus("idle"), 4000);
+      setTimeout(() => {
+        setStatus((prev) => (prev === "success" ? "idle" : prev));
+      }, 4000);
     }
   };
 
@@ -254,6 +286,7 @@ export default function Contact() {
 
           {/* Right Panel — Contact Form */}
           <motion.form
+            ref={formRef}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -277,6 +310,7 @@ export default function Contact() {
               </label>
               <input
                 id="contact-name"
+                name="from_name"
                 type="text"
                 placeholder="John Doe"
                 value={formData.name}
@@ -312,6 +346,7 @@ export default function Contact() {
               </label>
               <input
                 id="contact-email"
+                name="from_email"
                 type="email"
                 placeholder="john@example.com"
                 value={formData.email}
@@ -347,6 +382,7 @@ export default function Contact() {
               </label>
               <textarea
                 id="contact-message"
+                name="message"
                 rows={5}
                 placeholder="Tell me about your project or idea..."
                 value={formData.message}
@@ -374,14 +410,14 @@ export default function Contact() {
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={status === "sending"}
+              disabled={status === "loading"}
               style={{
                 width: "100%",
-                opacity: status === "sending" ? 0.7 : 1,
-                pointerEvents: status === "sending" ? "none" : "auto",
+                opacity: status === "loading" ? 0.7 : 1,
+                pointerEvents: status === "loading" ? "none" : "auto",
               }}
             >
-              {status === "sending" ? (
+              {status === "loading" ? (
                 <>
                   <Loader2
                     size={18}
@@ -391,16 +427,6 @@ export default function Contact() {
                   />
                   Sending...
                 </>
-              ) : status === "success" ? (
-                <>
-                  <CheckCircle size={18} />
-                  Message Sent!
-                </>
-              ) : status === "error" ? (
-                <>
-                  <AlertCircle size={18} />
-                  Failed — Try Again
-                </>
               ) : (
                 <>
                   <Send size={18} />
@@ -408,6 +434,80 @@ export default function Contact() {
                 </>
               )}
             </button>
+
+            {/* Toast Notifications */}
+            <AnimatePresence>
+              {status === "success" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                  transition={{ duration: 0.25 }}
+                  className="toast toast-success"
+                  style={{
+                    padding: "14px 16px",
+                    borderRadius: "var(--radius-md)",
+                    background: "rgba(34, 197, 94, 0.12)",
+                    border: "1px solid rgba(34, 197, 94, 0.35)",
+                    color: "#4ade80",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    fontSize: "0.86rem",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <CheckCircle size={18} style={{ flexShrink: 0 }} />
+                  <span style={{ flex: 1 }}>
+                    ✅ Message sent successfully! I'll get back to you soon.
+                  </span>
+                </motion.div>
+              )}
+
+              {status === "error" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                  transition={{ duration: 0.25 }}
+                  className="toast toast-error"
+                  style={{
+                    padding: "14px 16px",
+                    borderRadius: "var(--radius-md)",
+                    background: "rgba(239, 68, 68, 0.12)",
+                    border: "1px solid rgba(239, 68, 68, 0.35)",
+                    color: "#f87171",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    fontSize: "0.86rem",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <AlertCircle size={18} style={{ flexShrink: 0 }} />
+                  <span style={{ flex: 1 }}>
+                    ❌ Something went wrong. Please try again or email me directly at asuyamburaja35@gmail.com
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setStatus("idle")}
+                    aria-label="Dismiss error message"
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      color: "#f87171",
+                      cursor: "pointer",
+                      padding: "2px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <X size={16} />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.form>
         </div>
       </div>

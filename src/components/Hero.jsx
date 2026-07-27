@@ -48,7 +48,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             style={{
-              fontSize: "clamp(2.25rem, 6vw, 4rem)",
+              fontSize: "clamp(1.85rem, 5.5vw, 4rem)",
               fontWeight: 700,
               lineHeight: 1.1,
               marginBottom: "24px",
@@ -71,7 +71,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6 }}
             style={{
-              fontSize: "1.05rem",
+              fontSize: "clamp(0.95rem, 2vw, 1.05rem)",
               color: "var(--color-muted)",
               lineHeight: 1.7,
               maxWidth: "540px",
@@ -85,7 +85,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}
+            className="hero-cta-buttons"
+            style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}
           >
             <a
               href="#projects"

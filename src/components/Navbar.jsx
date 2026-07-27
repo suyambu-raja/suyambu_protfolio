@@ -9,6 +9,17 @@ export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileOpen]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
@@ -154,6 +165,10 @@ export default function Navbar() {
             background: "none",
             color: "var(--color-offwhite)",
             padding: "8px",
+            minWidth: "44px",
+            minHeight: "44px",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
