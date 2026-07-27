@@ -63,7 +63,6 @@ export default function Contact() {
 
     try {
       if (serviceId && templateId && publicKey) {
-        // Send email via EmailJS
         await emailjs.send(
           serviceId,
           templateId,
@@ -76,49 +75,34 @@ export default function Contact() {
           },
           publicKey
         );
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 4000);
       } else {
-        // Direct email API fallback
-        const res = await fetch(`https://formsubmit.co/ajax/${personalInfo.email}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-            _subject: `New Portfolio Message from ${formData.name}`,
-          }),
-        }).catch(() => null);
-
-        if (!res || !res.ok) {
-          // Reliable mailto trigger fallback if CORS or API fails
-          window.open(
-            `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-              "Portfolio Message from " + formData.name
-            )}&body=${encodeURIComponent(
-              formData.message + "\n\nFrom: " + formData.name + " (" + formData.email + ")"
-            )}`,
-            "_self"
-          );
-        }
-      }
-
-      setStatus("success");
-      setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setStatus("idle"), 4000);
-    } catch (err) {
-      console.error("Failed to send message via EmailJS:", err);
-      // Fallback to mailto
-      window.open(
-        `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+        // Fallback: Open mailto composer directly pre-populated with recipient, subject & body
+        const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
           "Portfolio Message from " + formData.name
         )}&body=${encodeURIComponent(
-          formData.message + "\n\nFrom: " + formData.name + " (" + formData.email + ")"
-        )}`,
-        "_self"
-      );
+          `Hi Suyambu,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
+        )}`;
+        
+        window.location.href = mailtoUrl;
+
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 4000);
+      }
+    } catch (err) {
+      console.error("Failed to send message via EmailJS:", err);
+      // Direct mailto fallback on error
+      const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+        "Portfolio Message from " + formData.name
+      )}&body=${encodeURIComponent(
+        `Hi Suyambu,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
+      )}`;
+
+      window.location.href = mailtoUrl;
+
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 4000);
