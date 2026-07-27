@@ -63,6 +63,7 @@ export default function Contact() {
 
     try {
       if (serviceId && templateId && publicKey) {
+        // Send email via EmailJS
         await emailjs.send(
           serviceId,
           templateId,
@@ -79,28 +80,51 @@ export default function Contact() {
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setStatus("idle"), 4000);
       } else {
-        // Fallback: Open mailto composer directly pre-populated with recipient, subject & body
-        const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-          "Portfolio Message from " + formData.name
-        )}&body=${encodeURIComponent(
-          `Hi Suyambu,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
-        )}`;
-        
-        window.location.href = mailtoUrl;
+        // Send email via FormSubmit AJAX endpoint for https://suyambu-protfolio.vercel.app/
+        const res = await fetch(`https://formsubmit.co/ajax/${personalInfo.email}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            _subject: `New Portfolio Inquiry from ${formData.name}`,
+            _captcha: "false",
+            _template: "table",
+            _url: "https://suyambu-protfolio.vercel.app/",
+          }),
+        }).catch(() => null);
 
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setStatus("idle"), 4000);
+        if (res && res.ok) {
+          const data = await res.json().catch(() => ({}));
+          console.log("FormSubmit response:", data);
+          setStatus("success");
+          setFormData({ name: "", email: "", message: "" });
+          setTimeout(() => setStatus("idle"), 4000);
+        } else {
+          // Direct mailto fallback if network or endpoint fails
+          const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+            "Portfolio Message from " + formData.name
+          )}&body=${encodeURIComponent(
+            `Hi Suyambu,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
+          )}`;
+          window.location.href = mailtoUrl;
+
+          setStatus("success");
+          setFormData({ name: "", email: "", message: "" });
+          setTimeout(() => setStatus("idle"), 4000);
+        }
       }
     } catch (err) {
-      console.error("Failed to send message via EmailJS:", err);
-      // Direct mailto fallback on error
+      console.error("Form submit error:", err);
       const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
         "Portfolio Message from " + formData.name
       )}&body=${encodeURIComponent(
         `Hi Suyambu,\n\n${formData.message}\n\n---\nSender: ${formData.name}\nEmail: ${formData.email}`
       )}`;
-
       window.location.href = mailtoUrl;
 
       setStatus("success");
