@@ -9,6 +9,17 @@ import { achievements, personalInfo } from "../data/portfolioData";
 const hackathons = achievements.filter((a) => a.category === "hackathon");
 
 /* =========================================================
+   IMAGE URL HELPER
+   ========================================================= */
+const getImageUrl = (url) => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  const base = import.meta.env.BASE_URL || "/";
+  const cleanPath = url.startsWith("/") ? url.slice(1) : url;
+  return base.endsWith("/") ? `${base}${cleanPath}` : `${base}/${cleanPath}`;
+};
+
+/* =========================================================
    LEETCODE CONFIG
    ========================================================= */
 const LEETCODE_USERNAME =
@@ -442,7 +453,7 @@ function HackathonCard({ item, onImageClick }) {
           style={{ cursor: "pointer" }}
           title="Click to view full photo"
         >
-          <img src={item.image} alt={item.event} className="ach-card__image" />
+          <img src={getImageUrl(item.image)} alt={item.event} className="ach-card__image" />
           <div className="ach-card__image-overlay">
             <span style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 600 }}>View Photo</span>
           </div>
@@ -570,7 +581,17 @@ export default function Achievements() {
               <button className="lightbox-close" onClick={() => setLightboxImage(null)}>
                 &times;
               </button>
-              <img src={lightboxImage} alt="Certificate Full Size" className="lightbox-image" />
+              <img
+                src={getImageUrl(lightboxImage)}
+                alt="Hackathon Achievement"
+                className="lightbox-image"
+                onError={(e) => {
+                  if (lightboxImage && !e.target.dataset.triedFallback) {
+                    e.target.dataset.triedFallback = "true";
+                    e.target.src = lightboxImage.startsWith("/") ? lightboxImage.slice(1) : `/${lightboxImage}`;
+                  }
+                }}
+              />
             </motion.div>
           </motion.div>
         )}
