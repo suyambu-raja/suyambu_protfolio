@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import emailjs from "@emailjs/browser";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { personalInfo } from "../data/portfolioData";
 
@@ -56,14 +57,70 @@ export default function Contact() {
     setErrors({});
     setStatus("sending");
 
-    // Simulated send — replace with EmailJS later
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (serviceId && templateId && publicKey) {
+        // Send email via EmailJS
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+            to_email: personalInfo.email,
+            reply_to: formData.email,
+          },
+          publicKey
+        );
+      } else {
+        // Direct email API fallback
+        const res = await fetch(`https://formsubmit.co/ajax/${personalInfo.email}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            _subject: `New Portfolio Message from ${formData.name}`,
+          }),
+        }).catch(() => null);
+
+        if (!res || !res.ok) {
+          // Reliable mailto trigger fallback if CORS or API fails
+          window.open(
+            `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+              "Portfolio Message from " + formData.name
+            )}&body=${encodeURIComponent(
+              formData.message + "\n\nFrom: " + formData.name + " (" + formData.email + ")"
+            )}`,
+            "_self"
+          );
+        }
+      }
+
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 4000);
-    } catch {
-      setStatus("error");
+    } catch (err) {
+      console.error("Failed to send message via EmailJS:", err);
+      // Fallback to mailto
+      window.open(
+        `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+          "Portfolio Message from " + formData.name
+        )}&body=${encodeURIComponent(
+          formData.message + "\n\nFrom: " + formData.name + " (" + formData.email + ")"
+        )}`,
+        "_self"
+      );
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 4000);
     }
   };
