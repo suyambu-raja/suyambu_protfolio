@@ -143,7 +143,7 @@ export default function Hero() {
             <div className="hero-profile-inner">
               {!imgError ? (
                 <img
-                  src={personalInfo.avatarUrl || "/profile.jpg"}
+                  src={personalInfo.avatarUrl || "/images/profile.jpg"}
                   alt={personalInfo.name}
                   className="hero-profile-image"
                   onLoad={() => setImgLoaded(true)}

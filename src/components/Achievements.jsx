@@ -453,7 +453,18 @@ function HackathonCard({ item, onImageClick }) {
           style={{ cursor: "pointer" }}
           title="Click to view full photo"
         >
-          <img src={getImageUrl(item.image)} alt={item.event} className="ach-card__image" />
+          <img
+            src={getImageUrl(item.image)}
+            alt={item.event}
+            className="ach-card__image"
+            onError={(e) => {
+              if (item.image && !e.target.dataset.triedFallback) {
+                e.target.dataset.triedFallback = "true";
+                const clean = item.image.startsWith("/") ? item.image.slice(1) : item.image;
+                e.target.src = getImageUrl(clean);
+              }
+            }}
+          />
           <div className="ach-card__image-overlay">
             <span style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 600 }}>View Photo</span>
           </div>

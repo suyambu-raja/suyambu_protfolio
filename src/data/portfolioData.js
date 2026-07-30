@@ -8,7 +8,7 @@ export const personalInfo = {
   linkedin: "https://linkedin.com/in/suyambu-raja-a-088994293",
   leetcode: "https://leetcode.com/u/5z8YMTYoQr/",
   resumeUrl: "/Suyambu_Resume_Updated.pdf",
-  avatarUrl: "/profile.jpg",
+  avatarUrl: "/images/profile.jpg",
 };
 
 export const navLinks = [
@@ -50,10 +50,10 @@ export const projects = [
     title: "YouTube Clone",
     description:
       "A fully functional YouTube clone built with React.js that integrates the YouTube Data API for real-time search, video playback, and channel information display.",
-    tags: ["React.js", "YouTube API", "Netlify"],
+    tags: ["React.js", "YouTube API", "Vercel"],
     highlight: "API integration — live demo deployed",
     github: "https://github.com/suyambu-raja/youtube-clone-008",
-    demo: "https://youtube-clone-800.netlify.app/",
+    demo: "https://youtube-clone-008.vercel.app/",
     status: "live",
     image: null,
   },
@@ -74,10 +74,10 @@ export const projects = [
     title: "Netflix Clone",
     description:
       "A fully functional Netflix clone built with React.js that integrates the TMDB API for real-time search, video playback.",
-    tags: ["React", "TMDB API", "Netlify"],
+    tags: ["React", "TMDB API", "Vercel"],
     highlight: "API integration + netflix UI design",
     github: "https://github.com/suyambu-raja/Netflix-clone",
-    demo: "https://neflix-clone-007.netlify.app",
+    demo: "https://netflix-clone-chi-ochre-64.vercel.app/",
     status: "live",
     image: null,
   },
@@ -86,10 +86,10 @@ export const projects = [
     title: "Amazon Clone",
     description:
       " Amazon clone built with HTML, CSS, JavaScript.",
-    tags: ["HTML", "CSS", "JavaScript", "Netlify"],
+    tags: ["HTML", "CSS", "JavaScript", "Vercel"],
     highlight: "Advanced level javaScript and DOM manipulation",
     github: "https://github.com/suyambu-raja/amazon-project-with-javaScript",
-    demo: "https://amazon-clone-with-js.netlify.app/",
+    demo: "https://amazon-project-with-java-script.vercel.app/",
     status: "live",
     image: null,
   },
@@ -196,15 +196,7 @@ export const experiences = [
         work: "Bulk invoice generation from Excel, PDF export, Supabase Auth, deployed on Render with custom domain.",
         status: "Completed",
         statusColor: "var(--color-teal)",
-      },
-      {
-        name: "WordPress Redesign",
-        client: "WBR Labs (wbrlabs.in)",
-        stack: ["WordPress", "Custom CSS"],
-        work: "Full site redesign, performance optimization.",
-        status: "In Progress",
-        statusColor: "#F5C542",
-      },
+      }
     ],
   },
 ];
@@ -215,6 +207,7 @@ export const achievements = [
     event: "Codeathon 4.0",
     result: "Special Price",
     organizer: "Prathyusha Engineering College",
+    year: 2026,
     description: "Developed a smart agri AI web app with AI voice assistance voice call, Agri news updates, yield prediction, crop disease detection, weather data for farmers in multilingual language.",
     image: "/images/codeathon4.jpg",
   },
@@ -223,8 +216,9 @@ export const achievements = [
     event: "HackFest 2023",
     result: "Special Prize",
     organizer: "Prathyusha Engineering College",
-    year: 2023,
+    year: 2025,
     description: "Created a food waste management web app by connecting hotels and food provide with the trusts to donate the excess food to the needy people",
+    image: "/images/codeathon3.jpeg",
   },
 ];
 
@@ -241,4 +235,5 @@ export const techStrip = [
   "MongoDB",
   "Docker",
   "Git",
+  "GitHub"
 ];
