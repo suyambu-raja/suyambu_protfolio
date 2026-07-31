@@ -1353,20 +1353,79 @@ button {
   justify-content: center;
 }
 
+/* Skeleton shimmer loader */
+.project-skeleton-loader {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #162840 25%,
+    #1e3a55 50%,
+    #162840 75%
+  );
+  background-size: 200% 100%;
+  animation: project-shimmer 1.5s infinite;
+  z-index: 1;
+}
+
+@keyframes project-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 .project-preview-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: opacity 0.4s ease;
 }
 
-.project-preview-img.loading {
-  opacity: 0.6;
+.project-image-placeholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background: linear-gradient(135deg, #162840 0%, #0D1B2A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  overflow: hidden;
 }
 
-.project-preview-img.loaded {
-  opacity: 1;
+.project-placeholder-glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(26, 188, 176, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.project-placeholder-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-placeholder-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #E8EDF2;
+  letter-spacing: 0.02em;
+}
+
+.project-placeholder-subtitle {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  font-weight: 400;
 }
 
 /* Status Badges in Upper Bar */
@@ -1444,39 +1503,6 @@ button {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
   }
-}
-
-.project-image-placeholder {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 200px;
-  background: linear-gradient(135deg, #162840 0%, #0D1B2A 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  text-align: center;
-  overflow: hidden;
-}
-
-.project-placeholder-glow {
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle, rgba(26, 188, 176, 0.25) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.project-placeholder-title {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #E8EDF2;
-  position: relative;
-  z-index: 1;
-  letter-spacing: 0.02em;
 }
 
 /* Right Side: Content Panel (60% width on desktop) */

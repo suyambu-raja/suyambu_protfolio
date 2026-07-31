@@ -31,7 +31,10 @@ export const projects = [
     github: "https://github.com/SanjayRam936/Lost_And_Found.git",
     demo: "https://lost-and-found-gilt-nine.vercel.app/",
     status: "live",
-    image: null,
+    // Preview control: "auto" = Thum.io screenshot | "manual" = custom image
+    previewMode: "auto",
+    previewImage: null,
+    previewRefresh: true, // set true to force fresh Thum.io capture, false to use cached
   },
   {
     id: 2,
@@ -43,7 +46,9 @@ export const projects = [
     github: "https://github.com/suyambu-raja/invoice-flow.git",
     demo: "https://invoice-flow-69tk.onrender.com",
     status: "live",
-    image: null,
+    previewMode: "auto",
+    previewImage: null,
+    previewRefresh: true,
   },
   {
     id: 3,
@@ -55,7 +60,9 @@ export const projects = [
     github: "https://github.com/suyambu-raja/youtube-clone-008",
     demo: "https://youtube-clone-008.vercel.app/",
     status: "live",
-    image: null,
+    previewMode: "auto",
+    previewImage: null,
+    previewRefresh: true,
   },
   {
     id: 4,
@@ -67,7 +74,9 @@ export const projects = [
     github: "https://github.com/suyambu-raja/Smart_Agri_Disease_Detection",
     demo: "https://smart-agri-disease-detection.netlify.app/",
     status: "live",
-    image: null,
+    previewMode: "auto",
+    previewImage: null,
+    previewRefresh: true,
   },
   {
     id: 5,
@@ -79,7 +88,9 @@ export const projects = [
     github: "https://github.com/suyambu-raja/Netflix-clone",
     demo: "https://netflix-clone-chi-ochre-64.vercel.app/",
     status: "live",
-    image: null,
+    previewMode: "auto",
+    previewImage: null,
+    previewRefresh: true,
   },
   {
     id: 6,
@@ -91,7 +102,9 @@ export const projects = [
     github: "https://github.com/suyambu-raja/amazon-project-with-javaScript",
     demo: "https://amazon-project-with-java-script.vercel.app/",
     status: "live",
-    image: null,
+    previewMode: "auto",
+    previewImage: null,
+    previewRefresh: true,
   },
 ];
 

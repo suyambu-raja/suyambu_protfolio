@@ -24,40 +24,29 @@ const getDomain = (url) => {
   }
 };
 
+// Get the preview image source based on project settings
+const getPreviewSrc = (project) => {
+  // Manual override — use custom image
+  if (project.previewMode === "manual" && project.previewImage) {
+    return project.previewImage;
+  }
+  // Auto — capture from live URL via Thum.io
+  const liveUrl = project.demo;
+  if (!liveUrl) return null;
+  const encoded = encodeURIComponent(liveUrl);
+  const base = `https://image.thum.io/get/width/1280/crop/800/noanimate/${encoded}`;
+  // Add timestamp to force fresh capture if previewRefresh is true
+  return project.previewRefresh ? `${base}?${Date.now()}` : base;
+};
+
 function ProjectImagePanel({ project }) {
-  const [imgAttempt, setImgAttempt] = useState(0);
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgState, setImgState] = useState("loading");
+  // states: 'loading' | 'loaded' | 'error'
 
   const liveUrl = project.demo;
   const domain = getDomain(liveUrl);
-
-  // Reliable Live Screenshot Providers with Fallback Chain
-  const getScreenshotUrl = (url, attempt) => {
-    if (project.image) return project.image;
-    if (!url) return null;
-    const encoded = encodeURIComponent(url);
-
-    if (attempt === 0) {
-      // Primary: WordPress mshots API (Free, high reliability, no CORS lock)
-      return `https://s0.wp.com/mshots/v1/${encoded}?w=1280&h=800`;
-    }
-    if (attempt === 1) {
-      // Secondary: Thum.io screenshot service
-      return `https://image.thum.io/get/width/1280/${url}`;
-    }
-    return null;
-  };
-
-  const currentImgSrc = getScreenshotUrl(liveUrl, imgAttempt);
   const status = project.status || (liveUrl ? "live" : "in-progress");
-
-  const handleImgError = () => {
-    if (imgAttempt < 1) {
-      setImgAttempt((prev) => prev + 1);
-    } else {
-      setImgAttempt(2); // Gradient placeholder fallback
-    }
-  };
+  const previewSrc = getPreviewSrc(project);
 
   return (
     <div className="project-image-panel">
@@ -97,18 +86,35 @@ function ProjectImagePanel({ project }) {
 
       {/* Screenshot Frame Area */}
       <div className="project-image-frame">
-        {currentImgSrc && imgAttempt < 2 ? (
+        {/* Skeleton shimmer loader — visible while image is loading */}
+        {imgState === "loading" && previewSrc && (
+          <div className="project-skeleton-loader" />
+        )}
+
+        {/* The actual preview image */}
+        {previewSrc && (
           <img
-            src={currentImgSrc}
+            src={previewSrc}
             alt={`${project.title} live screenshot`}
-            className={`project-preview-img ${imgLoaded ? "loaded" : "loading"}`}
-            onLoad={() => setImgLoaded(true)}
-            onError={handleImgError}
+            className="project-preview-img"
+            style={{ display: imgState === "loaded" ? "block" : "none" }}
+            onLoad={() => setImgState("loaded")}
+            onError={() => setImgState("error")}
           />
-        ) : (
+        )}
+
+        {/* Error / no-source fallback — gradient placeholder */}
+        {(imgState === "error" || !previewSrc) && (
           <div className="project-image-placeholder">
             <div className="project-placeholder-glow" />
-            <span className="project-placeholder-title">{project.title}</span>
+            <div className="project-placeholder-content">
+              <span className="project-placeholder-title">
+                {project.title}
+              </span>
+              <small className="project-placeholder-subtitle">
+                Preview unavailable
+              </small>
+            </div>
           </div>
         )}
       </div>
