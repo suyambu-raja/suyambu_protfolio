@@ -30,13 +30,10 @@ const getPreviewSrc = (project) => {
   if (project.previewMode === "manual" && project.previewImage) {
     return project.previewImage;
   }
-  // Auto — capture from live URL via Thum.io
+  // Auto — capture from live URL via Microlink screenshot API
   const liveUrl = project.demo;
   if (!liveUrl) return null;
-  const encoded = encodeURIComponent(liveUrl);
-  const base = `https://image.thum.io/get/width/1280/crop/800/noanimate/${encoded}`;
-  // Add timestamp to force fresh capture if previewRefresh is true
-  return project.previewRefresh ? `${base}?${Date.now()}` : base;
+  return `https://api.microlink.io/?url=${encodeURIComponent(liveUrl)}&screenshot=true&meta=false&embed=screenshot.url`;
 };
 
 function ProjectImagePanel({ project }) {
