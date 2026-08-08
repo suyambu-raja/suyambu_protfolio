@@ -53,15 +53,16 @@ export default function Hero() {
               lineHeight: 1.1,
               marginBottom: "24px",
               letterSpacing: "-0.03em",
+              color: "#F3F4F6",
             }}
           >
             Hi, I'm{" "}
-            <span style={{ color: "var(--color-teal)" }}>
+            <span style={{ color: "#7C3AED" }}>
               {personalInfo.name}
             </span>
             .
             <br />
-            <span style={{ color: "var(--color-muted)" }}>
+            <span style={{ color: "#ffffff" }}>
               {personalInfo.tagline}
             </span>
           </motion.h1>
@@ -72,7 +73,7 @@ export default function Hero() {
             transition={{ delay: 0.35, duration: 0.6 }}
             style={{
               fontSize: "clamp(0.95rem, 2vw, 1.05rem)",
-              color: "var(--color-muted)",
+              color: "#9CA3AF",
               lineHeight: 1.7,
               maxWidth: "540px",
               marginBottom: "36px",
@@ -97,7 +98,7 @@ export default function Hero() {
             </a>
             <a
               href={personalInfo.resumeUrl}
-              download
+              download="Suyambu_Resume_Updated.pdf"
               className="btn btn-ghost"
             >
               Download CV <Download size={16} />
@@ -130,20 +131,14 @@ export default function Hero() {
             {/* Radial glow behind */}
             <div className="hero-profile-glow" />
 
-            {/* Rotating gradient border wrapper */}
-            <div className="hero-profile-border-wrapper">
-              <motion.div
-                className="hero-profile-gradient-spin"
-                animate={{ rotate: [0, 360] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-              />
-            </div>
+            {/* Profile border wrapper */}
+            <div className="hero-profile-border-wrapper" />
 
             {/* Inner frame */}
             <div className="hero-profile-inner">
-              {!imgError ? (
+              {personalInfo.avatarUrl && !imgError ? (
                 <img
-                  src={personalInfo.avatarUrl || "/images/profile.jpg"}
+                  src={personalInfo.avatarUrl}
                   alt={personalInfo.name}
                   className="hero-profile-image"
                   onLoad={() => setImgLoaded(true)}
@@ -152,8 +147,8 @@ export default function Hero() {
                 />
               ) : null}
 
-              {/* Initials fallback — always visible if image fails or hasn't loaded */}
-              {(imgError || !imgLoaded) && (
+              {/* Initials badge */}
+              {(!personalInfo.avatarUrl || imgError || !imgLoaded) && (
                 <div className="hero-profile-initials">
                   SR
                 </div>
@@ -164,7 +159,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator — disappears on scroll */}
+      {/* Scroll indicator */}
       <AnimatePresence>
         {showScroll && (
           <motion.div
@@ -178,7 +173,7 @@ export default function Hero() {
               style={{
                 fontSize: "0.7rem",
                 letterSpacing: "0.15em",
-                color: "var(--color-muted)",
+                color: "#6B7280",
                 textTransform: "uppercase",
               }}
             >
@@ -188,7 +183,7 @@ export default function Hero() {
               animate={{ y: [0, 8, 0] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
             >
-              <ArrowDown size={16} style={{ color: "var(--color-teal)" }} />
+              <ArrowDown size={16} style={{ color: "#7C3AED" }} />
             </motion.div>
           </motion.div>
         )}

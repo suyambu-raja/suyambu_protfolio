@@ -53,7 +53,7 @@ const tabs = [
    INLINE SVG ICONS
    ========================================================= */
 const TrophyIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1ABCB0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
     <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
     <path d="M4 22h16" />
@@ -62,8 +62,6 @@ const TrophyIcon = () => (
     <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
   </svg>
 );
-
-
 
 /* =========================================================
    ANIMATION VARIANTS
@@ -139,36 +137,36 @@ function DonutChart({ easy, medium, hard, totalQuestions, attempting }) {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
       <div style={{ position: "relative", width: "160px", height: "160px" }}>
         <svg width="160" height="160" viewBox="0 0 160 160" style={{ transform: "rotate(-90deg)" }}>
-          <circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="rgba(232,237,242,0.06)" strokeWidth={stroke} />
-          <motion.circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="#00B8A3" strokeWidth={stroke} strokeLinecap="round"
+          <circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="rgba(124, 58, 237, 0.15)" strokeWidth={stroke} />
+          <motion.circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="#7C3AED" strokeWidth={stroke} strokeLinecap="round"
             strokeDasharray={`${easyLen} ${circumference - easyLen}`} strokeDashoffset={0}
             initial={{ strokeDasharray: `0 ${circumference}` }}
             whileInView={{ strokeDasharray: `${easyLen} ${circumference - easyLen}` }}
             viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }} />
-          <motion.circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="#FFC01E" strokeWidth={stroke} strokeLinecap="round"
+          <motion.circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="#A78BFA" strokeWidth={stroke} strokeLinecap="round"
             strokeDasharray={`${mediumLen} ${circumference - mediumLen}`} strokeDashoffset={mediumOffset}
             initial={{ strokeDasharray: `0 ${circumference}` }}
             whileInView={{ strokeDasharray: `${mediumLen} ${circumference - mediumLen}` }}
             viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }} />
-          <motion.circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="#EF4743" strokeWidth={stroke} strokeLinecap="round"
+          <motion.circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="#EC4899" strokeWidth={stroke} strokeLinecap="round"
             strokeDasharray={`${hardLen} ${circumference - hardLen}`} strokeDashoffset={hardOffset}
             initial={{ strokeDasharray: `0 ${circumference}` }}
             whileInView={{ strokeDasharray: `${hardLen} ${circumference - hardLen}` }}
             viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut", delay: 0.8 }} />
         </svg>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", textAlign: "center" }}>
-          <div style={{ fontSize: "1.6rem", fontWeight: 700, fontFamily: "var(--font-heading)", color: "var(--color-offwhite)", lineHeight: 1 }}>
+          <div style={{ fontSize: "1.6rem", fontWeight: 700, fontFamily: "var(--font-heading)", color: "#F3F4F6", lineHeight: 1 }}>
             <AnimatedCounter value={totalSolved} />
-            <span style={{ fontSize: "0.8rem", color: "var(--color-muted)", fontWeight: 500 }}>/{totalQuestions}</span>
+            <span style={{ fontSize: "0.8rem", color: "#9CA3AF", fontWeight: 500 }}>/{totalQuestions}</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", fontSize: "0.68rem", color: "var(--color-teal)", marginTop: "6px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", fontSize: "0.68rem", color: "#7C3AED", marginTop: "6px" }}>
             <CheckCircle2 size={11} /> Solved
           </div>
         </div>
       </div>
       {attempting > 0 && (
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.75rem", color: "var(--color-muted)" }}>
-          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--color-teal)" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.75rem", color: "#9CA3AF" }}>
+          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#7C3AED" }} />
           {attempting} Attempting
         </div>
       )}
@@ -190,25 +188,25 @@ function AcceptanceDonut({ acceptanceRate, totalSubmissions }) {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
       <div style={{ position: "relative", width: "160px", height: "160px" }}>
         <svg width="160" height="160" viewBox="0 0 160 160" style={{ transform: "rotate(-90deg)" }}>
-          <circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="rgba(232,237,242,0.06)" strokeWidth={stroke} />
-          <motion.circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="var(--color-teal)" strokeWidth={stroke} strokeLinecap="round"
+          <circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="rgba(124, 58, 237, 0.15)" strokeWidth={stroke} />
+          <motion.circle cx="80" cy="80" r={normalizedRadius} fill="none" stroke="#7C3AED" strokeWidth={stroke} strokeLinecap="round"
             strokeDasharray={`${filledLen} ${circumference - filledLen}`} strokeDashoffset={0}
             initial={{ strokeDasharray: `0 ${circumference}` }}
             whileInView={{ strokeDasharray: `${filledLen} ${circumference - filledLen}` }}
             viewport={{ once: true }} transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }} />
         </svg>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", textAlign: "center" }}>
-          <div style={{ fontSize: "1.6rem", fontWeight: 700, fontFamily: "var(--font-heading)", color: "var(--color-offwhite)", lineHeight: 1 }}>
+          <div style={{ fontSize: "1.6rem", fontWeight: 700, fontFamily: "var(--font-heading)", color: "#F3F4F6", lineHeight: 1 }}>
             <AnimatedCounter value={acceptanceRate} suffix="%" />
           </div>
-          <div style={{ fontSize: "0.68rem", color: "var(--color-muted)", marginTop: "6px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+          <div style={{ fontSize: "0.68rem", color: "#9CA3AF", marginTop: "6px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>
             Acceptance
           </div>
         </div>
       </div>
       {totalSubmissions > 0 && (
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.75rem", color: "var(--color-muted)" }}>
-          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--color-teal)" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.75rem", color: "#9CA3AF" }}>
+          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#7C3AED" }} />
           {totalSubmissions} submissions
         </div>
       )}
@@ -232,13 +230,13 @@ function DifficultyBar({ label, solved, total, color, icon: Icon, delay }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <Icon size={14} style={{ color }} />
-          <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--color-offwhite)" }}>{label}</span>
+          <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "#F3F4F6" }}>{label}</span>
         </div>
         <span style={{ fontSize: "0.82rem", fontWeight: 600, color }}>
           <AnimatedCounter value={solved} />
         </span>
       </div>
-      <div style={{ height: "6px", borderRadius: "3px", background: "rgba(232,237,242,0.06)", overflow: "hidden" }}>
+      <div style={{ height: "6px", borderRadius: "3px", background: "rgba(124, 58, 237, 0.15)", overflow: "hidden" }}>
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${percentage}%` }}
@@ -312,30 +310,16 @@ function LeetCodeTab() {
         className="card"
         style={{
           padding: "40px",
-          background: "linear-gradient(135deg, var(--color-navy-light) 0%, rgba(13,27,42,0.8) 100%)",
-          border: "1px solid rgba(255,165,0,0.15)",
+          background: "#0A0A0F",
+          border: "1px solid rgba(124, 58, 237, 0.25)",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        {/* Decorative gradient blob */}
-        <div
-          style={{
-            position: "absolute",
-            top: "-60px",
-            right: "-60px",
-            width: "250px",
-            height: "250px",
-            background: "radial-gradient(circle, rgba(255,165,0,0.08) 0%, transparent 70%)",
-            borderRadius: "50%",
-            pointerEvents: "none",
-          }}
-        />
-
         {loading ? (
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "200px" }}>
             <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}>
-              <Code2 size={32} style={{ color: "#FFA500", opacity: 0.5 }} />
+              <Code2 size={32} style={{ color: "#7C3AED", opacity: 0.5 }} />
             </motion.div>
           </div>
         ) : (
@@ -352,9 +336,9 @@ function LeetCodeTab() {
               {/* Difficulty counts */}
               <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "24px" }}>
                 {[
-                  { label: "Easy", value: data.easySolved, color: "#00B8A3" },
-                  { label: "Medium", value: data.mediumSolved, color: "#FFC01E" },
-                  { label: "Hard", value: data.hardSolved, color: "#EF4743" },
+                  { label: "Easy", value: data.easySolved, color: "#7C3AED" },
+                  { label: "Medium", value: data.mediumSolved, color: "#A78BFA" },
+                  { label: "Hard", value: data.hardSolved, color: "#EC4899" },
                 ].map((d) => (
                   <div
                     key={d.label}
@@ -363,13 +347,13 @@ function LeetCodeTab() {
                       alignItems: "center",
                       gap: "8px",
                       padding: "8px 16px",
-                      background: "rgba(232,237,242,0.04)",
+                      background: "rgba(124, 58, 237, 0.15)",
                       borderRadius: "var(--radius-sm)",
-                      border: `1px solid ${d.color}22`,
+                      border: "1px solid rgba(124, 58, 237, 0.25)",
                     }}
                   >
                     <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: d.color }} />
-                    <span style={{ fontSize: "0.78rem", color: "var(--color-muted)", fontWeight: 500 }}>{d.label}</span>
+                    <span style={{ fontSize: "0.78rem", color: "#9CA3AF", fontWeight: 500 }}>{d.label}</span>
                     <span style={{ fontSize: "0.95rem", fontWeight: 700, color: d.color, fontFamily: "var(--font-heading)" }}>
                       <AnimatedCounter value={d.value} />
                     </span>
@@ -388,19 +372,19 @@ function LeetCodeTab() {
                     alignItems: "center",
                     gap: "8px",
                     padding: "10px 18px",
-                    background: "rgba(255,165,0,0.06)",
+                    background: "rgba(245, 158, 11, 0.1)",
                     borderRadius: "var(--radius-md)",
-                    border: "1px solid rgba(255,165,0,0.12)",
+                    border: "1px solid rgba(245, 158, 11, 0.25)",
                     marginTop: "24px",
                     width: "fit-content",
                   }}
                 >
-                  <Trophy size={16} style={{ color: "#FFA500" }} />
+                  <Trophy size={16} style={{ color: "#F59E0B" }} />
                   <div>
-                    <div style={{ fontSize: "0.68rem", color: "var(--color-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    <div style={{ fontSize: "0.68rem", color: "#F59E0B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                       Ranking
                     </div>
-                    <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-offwhite)", fontFamily: "var(--font-heading)" }}>
+                    <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "#F3F4F6", fontFamily: "var(--font-heading)" }}>
                       <AnimatedCounter value={data.ranking} duration={2} />
                     </div>
                   </div>
@@ -431,7 +415,7 @@ function LeetCodeTab() {
         )}
 
         {error && !stats && (
-          <p style={{ fontSize: "0.82rem", color: "var(--color-muted)", textAlign: "center", marginTop: "12px", fontStyle: "italic" }}>
+          <p style={{ fontSize: "0.82rem", color: "#9CA3AF", textAlign: "center", marginTop: "12px", fontStyle: "italic" }}>
             * Showing cached data — live stats will update shortly.
           </p>
         )}
@@ -488,8 +472,8 @@ function HackathonCard({ item, onImageClick }) {
               style={{
                 fontSize: "0.78rem",
                 padding: "6px 14px",
-                borderColor: "var(--color-teal)",
-                color: "var(--color-teal)",
+                borderColor: "rgba(124, 58, 237, 0.3)",
+                color: "#A78BFA",
                 marginLeft: "auto",
                 cursor: "pointer",
               }}

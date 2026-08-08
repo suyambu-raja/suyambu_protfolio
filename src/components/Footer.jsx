@@ -15,7 +15,8 @@ export default function Footer() {
   return (
     <footer
       style={{
-        borderTop: "1px solid rgba(232, 237, 242, 0.06)",
+        background: "#000000",
+        borderTop: "3px solid #7C3AED",
         padding: "48px 0 32px",
       }}
     >
@@ -36,10 +37,10 @@ export default function Footer() {
             fontFamily: "var(--font-heading)",
             fontSize: "1.5rem",
             fontWeight: 700,
-            color: "var(--color-offwhite)",
+            color: "#FFFFFF",
           }}
         >
-          S<span style={{ color: "var(--color-teal)" }}>.</span>Dev
+          S<span style={{ color: "#7C3AED" }}>.</span>Dev
         </a>
 
         {/* Navigation */}
@@ -60,14 +61,14 @@ export default function Footer() {
                   onClick={(e) => handleNavClick(e, link.href)}
                   style={{
                     fontSize: "0.85rem",
-                    color: "var(--color-muted)",
+                    color: "#9CA3AF",
                     transition: "color 0.3s ease",
                   }}
                   onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--color-teal)")
+                    (e.currentTarget.style.color = "#A78BFA")
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--color-muted)")
+                    (e.currentTarget.style.color = "#9CA3AF")
                   }
                 >
                   {link.label}
@@ -94,23 +95,23 @@ export default function Footer() {
                 width: "40px",
                 height: "40px",
                 borderRadius: "var(--radius-md)",
-                background: "rgba(232, 237, 242, 0.04)",
-                border: "1px solid rgba(232, 237, 242, 0.08)",
+                background: "rgba(124, 58, 237, 0.1)",
+                border: "1px solid rgba(124, 58, 237, 0.25)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "var(--color-muted)",
+                color: "#9CA3AF",
                 transition: "all 0.3s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--color-teal)";
-                e.currentTarget.style.color = "var(--color-teal)";
-                e.currentTarget.style.background = "var(--color-teal-glow)";
+                e.currentTarget.style.borderColor = "#7C3AED";
+                e.currentTarget.style.color = "#A78BFA";
+                e.currentTarget.style.background = "rgba(124, 58, 237, 0.25)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(232, 237, 242, 0.08)";
-                e.currentTarget.style.color = "var(--color-muted)";
-                e.currentTarget.style.background = "rgba(232, 237, 242, 0.04)";
+                e.currentTarget.style.borderColor = "rgba(124, 58, 237, 0.25)";
+                e.currentTarget.style.color = "#9CA3AF";
+                e.currentTarget.style.background = "rgba(124, 58, 237, 0.1)";
               }}
             >
               <Icon size={18} />
@@ -123,13 +124,13 @@ export default function Footer() {
           style={{
             width: "100%",
             height: "1px",
-            background: "rgba(232, 237, 242, 0.06)",
+            background: "rgba(124, 58, 237, 0.2)",
           }}
         />
         <p
           style={{
             fontSize: "0.8rem",
-            color: "var(--color-muted)",
+            color: "#9CA3AF",
             display: "flex",
             alignItems: "center",
             gap: "4px",
@@ -138,7 +139,7 @@ export default function Footer() {
           © {new Date().getFullYear()} Suyambu. Built with
           <Heart
             size={14}
-            style={{ color: "var(--color-teal)", fill: "var(--color-teal)" }}
+            style={{ color: "#7C3AED", fill: "#7C3AED" }}
           />
           using React.
         </p>

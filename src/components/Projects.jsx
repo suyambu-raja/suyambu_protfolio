@@ -26,19 +26,16 @@ const getDomain = (url) => {
 
 // Get the preview image source based on project settings
 const getPreviewSrc = (project) => {
-  // Manual override — use custom image
   if (project.previewMode === "manual" && project.previewImage) {
     return project.previewImage;
   }
-  // Auto — capture from live URL via Microlink screenshot API
   const liveUrl = project.demo;
   if (!liveUrl) return null;
   return `https://api.microlink.io/?url=${encodeURIComponent(liveUrl)}&screenshot=true&meta=false&embed=screenshot.url`;
 };
 
-function ProjectImagePanel({ project }) {
+function ProjectImagePanel({ project, cardNum }) {
   const [imgState, setImgState] = useState("loading");
-  // states: 'loading' | 'loaded' | 'error'
 
   const liveUrl = project.demo;
   const domain = getDomain(liveUrl);
@@ -47,7 +44,7 @@ function ProjectImagePanel({ project }) {
 
   return (
     <div className="project-image-panel">
-      {/* Dark Browser Mockup Top Bar (#0a1520) */}
+      {/* Dark Browser Mockup Top Bar (#1a1a2e) */}
       <div className="project-browser-bar">
         <div className="project-browser-dots">
           <span className="dot dot-red" />
@@ -66,7 +63,7 @@ function ProjectImagePanel({ project }) {
           </div>
         )}
 
-        {/* Status Badge in Upper Bar */}
+        {/* Live / In-Progress Status Badge */}
         {status === "live" && (
           <div className="project-status-badge badge-live">
             <span className="pulse-dot green" />
@@ -83,12 +80,12 @@ function ProjectImagePanel({ project }) {
 
       {/* Screenshot Frame Area */}
       <div className="project-image-frame">
-        {/* Skeleton shimmer loader — visible while image is loading */}
+        {/* Skeleton shimmer loader */}
         {imgState === "loading" && previewSrc && (
           <div className="project-skeleton-loader" />
         )}
 
-        {/* The actual preview image */}
+        {/* Preview image */}
         {previewSrc && (
           <img
             src={previewSrc}
@@ -100,7 +97,7 @@ function ProjectImagePanel({ project }) {
           />
         )}
 
-        {/* Error / no-source fallback — gradient placeholder */}
+        {/* Fallback placeholder */}
         {(imgState === "error" || !previewSrc) && (
           <div className="project-image-placeholder">
             <div className="project-placeholder-glow" />
@@ -114,6 +111,9 @@ function ProjectImagePanel({ project }) {
             </div>
           </div>
         )}
+
+        {/* Bottom-left small purple card number badge */}
+        <span className="project-number-badge">{cardNum}</span>
       </div>
     </div>
   );
@@ -150,19 +150,23 @@ export default function Projects() {
                 viewport={{ once: true, margin: "-60px" }}
                 variants={cardVariants}
               >
-                {/* Top Gradient Accent Bar */}
-                <div className="project-card-accent-bar" />
-
                 <div className="project-card-split">
                   {/* Left Side: Browser Mockup & Screenshot Panel */}
-                  <ProjectImagePanel project={project} />
+                  <ProjectImagePanel project={project} cardNum={cardNum} />
 
                   {/* Right Side: Content Panel */}
                   <div className="project-content-panel">
-                    {/* Watermark Card Number */}
+                    {/* Faint Watermark Card Number */}
                     <div className="project-watermark-number">{cardNum}</div>
 
                     <div className="project-content-top">
+                      {/* Category Label Pill */}
+                      {project.category && (
+                        <span className="project-category-pill">
+                          {project.category}
+                        </span>
+                      )}
+
                       {/* Project Title */}
                       <h3 className="project-card-title">{project.title}</h3>
 
@@ -190,6 +194,9 @@ export default function Projects() {
                         ))}
                       </div>
 
+                      {/* Thin Divider Line */}
+                      <div className="project-divider-line" />
+
                       {/* Footer Action Buttons */}
                       <div className="project-card-actions">
                         {project.demo && (
@@ -199,8 +206,8 @@ export default function Projects() {
                             rel="noopener noreferrer"
                             className="project-btn project-btn-primary"
                           >
-                            <span>Live Demo</span>
                             <ExternalLink size={15} />
+                            <span>Live Demo</span>
                           </a>
                         )}
 

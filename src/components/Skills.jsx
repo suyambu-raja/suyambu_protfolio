@@ -5,13 +5,13 @@ import { skillGroups } from "../data/portfolioData";
 const customIcons = {
   jwt: (
     <svg viewBox="0 0 40 40" className="skill-custom-icon">
-      <circle cx="20" cy="20" r="18" fill="none" stroke="#FB015B" strokeWidth="2" />
+      <circle cx="20" cy="20" r="18" fill="none" stroke="#7C3AED" strokeWidth="2" />
       <text
         x="20"
         y="21"
         textAnchor="middle"
         dominantBaseline="central"
-        fill="#FB015B"
+        fill="#7C3AED"
         fontSize="10"
         fontWeight="700"
         fontFamily="var(--font-heading)"

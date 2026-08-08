@@ -181,17 +181,17 @@ export default function Contact() {
     padding: "12px 16px",
     fontSize: "0.9rem",
     fontFamily: "var(--font-body)",
-    color: "var(--color-offwhite)",
-    background: "rgba(232, 237, 242, 0.04)",
-    border: `1px solid ${hasError ? "#ef4444" : "rgba(232, 237, 242, 0.1)"}`,
+    color: "#F3F4F6",
+    background: "#050508",
+    border: `1px solid ${hasError ? "#ef4444" : "rgba(124, 58, 237, 0.25)"}`,
     borderRadius: "var(--radius-md)",
     outline: "none",
     transition: "border-color 0.3s ease, box-shadow 0.3s ease",
   });
 
   const inputFocusStyle = {
-    borderColor: "var(--color-teal)",
-    boxShadow: "0 0 0 3px rgba(26, 188, 176, 0.1)",
+    borderColor: "#7C3AED",
+    boxShadow: "0 0 0 3px rgba(124, 58, 237, 0.2)",
   };
 
   return (
@@ -243,6 +243,8 @@ export default function Contact() {
                     gap: "16px",
                     textDecoration: "none",
                     cursor: "pointer",
+                    background: "#0A0A0F",
+                    border: "1px solid rgba(124, 58, 237, 0.25)",
                   }}
                 >
                   <div
@@ -250,20 +252,20 @@ export default function Contact() {
                       width: "44px",
                       height: "44px",
                       borderRadius: "var(--radius-md)",
-                      background: "var(--color-teal-glow)",
+                      background: "rgba(124, 58, 237, 0.15)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       flexShrink: 0,
                     }}
                   >
-                    <Icon size={20} style={{ color: "var(--color-teal)" }} />
+                    <Icon size={20} style={{ color: "#7C3AED" }} />
                   </div>
                   <div>
                     <p
                       style={{
                         fontSize: "0.8rem",
-                        color: "var(--color-muted)",
+                        color: "#9CA3AF",
                         marginBottom: "2px",
                       }}
                     >
@@ -273,7 +275,7 @@ export default function Contact() {
                       style={{
                         fontSize: "0.92rem",
                         fontWeight: 500,
-                        color: "var(--color-offwhite)",
+                        color: "#F3F4F6",
                       }}
                     >
                       {link.value}
@@ -293,7 +295,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.15 }}
             onSubmit={handleSubmit}
             className="card"
-            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            style={{ display: "flex", flexDirection: "column", gap: "20px", background: "#0A0A0F", border: "1px solid rgba(124, 58, 237, 0.25)" }}
           >
             <div>
               <label
@@ -302,7 +304,7 @@ export default function Contact() {
                   display: "block",
                   fontSize: "0.82rem",
                   fontWeight: 500,
-                  color: "var(--color-muted)",
+                  color: "#9CA3AF",
                   marginBottom: "6px",
                 }}
               >
@@ -320,7 +322,7 @@ export default function Contact() {
                 onBlur={(e) => {
                   e.target.style.borderColor = errors.name
                     ? "#ef4444"
-                    : "rgba(232, 237, 242, 0.1)";
+                    : "rgba(124, 58, 237, 0.25)";
                   e.target.style.boxShadow = "none";
                 }}
               />
@@ -338,7 +340,7 @@ export default function Contact() {
                   display: "block",
                   fontSize: "0.82rem",
                   fontWeight: 500,
-                  color: "var(--color-muted)",
+                  color: "#9CA3AF",
                   marginBottom: "6px",
                 }}
               >
@@ -356,7 +358,7 @@ export default function Contact() {
                 onBlur={(e) => {
                   e.target.style.borderColor = errors.email
                     ? "#ef4444"
-                    : "rgba(232, 237, 242, 0.1)";
+                    : "rgba(124, 58, 237, 0.25)";
                   e.target.style.boxShadow = "none";
                 }}
               />
@@ -374,7 +376,7 @@ export default function Contact() {
                   display: "block",
                   fontSize: "0.82rem",
                   fontWeight: 500,
-                  color: "var(--color-muted)",
+                  color: "#9CA3AF",
                   marginBottom: "6px",
                 }}
               >
@@ -396,7 +398,7 @@ export default function Contact() {
                 onBlur={(e) => {
                   e.target.style.borderColor = errors.message
                     ? "#ef4444"
-                    : "rgba(232, 237, 242, 0.1)";
+                    : "rgba(124, 58, 237, 0.25)";
                   e.target.style.boxShadow = "none";
                 }}
               />

@@ -8,7 +8,7 @@ export const personalInfo = {
   linkedin: "https://linkedin.com/in/suyambu-raja-a-088994293",
   leetcode: "https://leetcode.com/u/5z8YMTYoQr/",
   resumeUrl: "/Suyambu_Resume_Updated.pdf",
-  avatarUrl: "/images/profile.jpg",
+  avatarUrl: null, // Set to "/images/profile.jpg" when profile image is ready
 };
 
 export const navLinks = [
@@ -24,6 +24,7 @@ export const projects = [
   {
     id: 1,
     title: "Lost and Found Ai",
+    category: "AI / Full Stack",
     description:
       "An AI-powered lost-and-found platform that matches lost and found reports using semantic text, image, and location similarity. Features privacy-first ownership verification, OTP-secured handovers, and direct UPI reward payments.",
     tags: ["React.js", "Django", "JWT Auth", "Postgres SQL", "CLIP", "EasyOCR"],
@@ -39,6 +40,7 @@ export const projects = [
   {
     id: 2,
     title: "Invoice Generator",
+    category: "Full Stack / PDF",
     description:
       "A React web app that turns spreadsheets into polished invoices in bulk — upload an Excel file, map columns to a template, and generate print-ready PDFs for every row, with batch ZIP export and cloud-synced data sources.",
     tags: ["React.js", "Supabase", "React-pdf", "xlsx"],
@@ -53,6 +55,7 @@ export const projects = [
   {
     id: 3,
     title: "YouTube Clone",
+    category: "Frontend / API",
     description:
       "A fully functional YouTube clone built with React.js that integrates the YouTube Data API for real-time search, video playback, and channel information display.",
     tags: ["React.js", "YouTube API", "Vercel"],
@@ -67,6 +70,7 @@ export const projects = [
   {
     id: 4,
     title: "Smart Agriculture PWA",
+    category: "ML / PWA",
     description:
       "A progressive web app for smart farming featuring crop disease detection powered by a custom TensorFlow model, bilingual support (English & Tamil), and a Django REST backend.",
     tags: ["React", "Django", "TensorFlow", "PWA", "Render"],
@@ -81,6 +85,7 @@ export const projects = [
   {
     id: 5,
     title: "Netflix Clone",
+    category: "Frontend / UI",
     description:
       "A fully functional Netflix clone built with React.js that integrates the TMDB API for real-time search, video playback.",
     tags: ["React", "TMDB API", "Vercel"],
@@ -95,6 +100,7 @@ export const projects = [
   {
     id: 6,
     title: "Amazon Clone",
+    category: "Frontend / JS",
     description:
       " Amazon clone built with HTML, CSS, JavaScript.",
     tags: ["HTML", "CSS", "JavaScript", "Vercel"],
@@ -226,7 +232,7 @@ export const achievements = [
   },
   {
     category: "hackathon",
-    event: "HackFest 2023",
+    event: "Codeathon 3.0",
     result: "Special Prize",
     organizer: "Prathyusha Engineering College",
     year: 2025,

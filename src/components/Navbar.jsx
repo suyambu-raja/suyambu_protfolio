@@ -63,14 +63,13 @@ export default function Navbar() {
         display: "flex",
         alignItems: "center",
         transition: "all 0.3s ease",
-        background: isScrolled
-          ? "rgba(13, 27, 42, 0.85)"
-          : "transparent",
-        backdropFilter: isScrolled ? "blur(16px)" : "none",
-        WebkitBackdropFilter: isScrolled ? "blur(16px)" : "none",
-        borderBottom: isScrolled
-          ? "1px solid rgba(232, 237, 242, 0.06)"
-          : "1px solid transparent",
+        background: "rgba(0, 0, 0, 0.9)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(124, 58, 237, 0.25)",
+        boxShadow: isScrolled
+          ? "0 4px 20px rgba(124, 58, 237, 0.15)"
+          : "none",
       }}
     >
       <div
@@ -90,11 +89,11 @@ export default function Navbar() {
             fontFamily: "var(--font-heading)",
             fontSize: "1.35rem",
             fontWeight: 700,
-            color: "var(--color-offwhite)",
+            color: "#FFFFFF",
             letterSpacing: "-0.02em",
           }}
         >
-          S<span style={{ color: "var(--color-teal)" }}>.</span>Dev
+          S<span style={{ color: "#7C3AED" }}>.</span>Dev
         </a>
 
         {/* Desktop Nav Links */}
@@ -118,19 +117,19 @@ export default function Navbar() {
                     fontSize: "0.875rem",
                     fontWeight: 500,
                     color: isActive
-                      ? "var(--color-teal)"
-                      : "var(--color-muted)",
+                      ? "#7C3AED"
+                      : "#9CA3AF",
                     transition: "color 0.3s ease",
                     position: "relative",
                     paddingBottom: "4px",
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive)
-                      e.currentTarget.style.color = "var(--color-offwhite)";
+                      e.currentTarget.style.color = "#FFFFFF";
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive)
-                      e.currentTarget.style.color = "var(--color-muted)";
+                      e.currentTarget.style.color = "#9CA3AF";
                   }}
                 >
                   {link.label}
@@ -143,7 +142,7 @@ export default function Navbar() {
                         left: 0,
                         right: 0,
                         height: "2px",
-                        background: "var(--color-teal)",
+                        background: "#7C3AED",
                         borderRadius: "1px",
                       }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -163,7 +162,7 @@ export default function Navbar() {
           style={{
             display: "none",
             background: "none",
-            color: "var(--color-offwhite)",
+            color: "#FFFFFF",
             padding: "8px",
             minWidth: "44px",
             minHeight: "44px",
@@ -189,11 +188,12 @@ export default function Navbar() {
               top: "var(--nav-height)",
               left: 0,
               right: 0,
-              background: "rgba(13, 27, 42, 0.95)",
+              background: "rgba(10, 10, 15, 0.98)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
-              borderBottom: "1px solid rgba(232, 237, 242, 0.06)",
+              borderBottom: "1px solid rgba(124, 58, 237, 0.25)",
               padding: "16px 0",
+              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.5)",
             }}
           >
             <ul
@@ -218,8 +218,8 @@ export default function Navbar() {
                         fontSize: "0.95rem",
                         fontWeight: 500,
                         color: isActive
-                          ? "var(--color-teal)"
-                          : "var(--color-muted)",
+                          ? "#7C3AED"
+                          : "#9CA3AF",
                         transition: "color 0.3s ease",
                       }}
                     >

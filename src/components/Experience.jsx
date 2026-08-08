@@ -98,14 +98,14 @@ export default function Experience() {
                         width: "40px",
                         height: "40px",
                         borderRadius: "8px",
-                        background: "rgba(232,237,242,0.05)",
+                        background: "rgba(124, 58, 237, 0.15)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        border: "1px solid rgba(232,237,242,0.1)",
+                        border: "1px solid rgba(124, 58, 237, 0.25)",
                       }}
                     >
-                      <Building2 size={20} style={{ color: "#8A9BB0" }} />
+                      <Building2 size={20} style={{ color: "#7C3AED" }} />
                     </div>
                   )}
 
@@ -118,11 +118,11 @@ export default function Experience() {
                           style={{
                             fontSize: "0.75rem",
                             fontWeight: 700,
-                            color: exp.statusColor || "#1ABCB0",
-                            background: "rgba(26,188,176,0.08)",
+                            color: exp.status === "Completed" ? "#34D399" : "#F59E0B",
+                            background: exp.status === "Completed" ? "rgba(16, 185, 129, 0.15)" : "rgba(245, 158, 11, 0.15)",
                             padding: "3px 10px",
                             borderRadius: "99px",
-                            border: `1px solid ${exp.statusColor || "#1ABCB0"}40`,
+                            border: `1px solid ${exp.status === "Completed" ? "rgba(16, 185, 129, 0.3)" : "rgba(245, 158, 11, 0.3)"}`,
                           }}
                         >
                           {exp.status}
@@ -133,11 +133,11 @@ export default function Experience() {
                           style={{
                             fontSize: "0.75rem",
                             fontWeight: 700,
-                            color: "#1ABCB0",
-                            background: "rgba(26,188,176,0.08)",
+                            color: "#A78BFA",
+                            background: "rgba(124, 58, 237, 0.15)",
                             padding: "3px 10px",
                             borderRadius: "99px",
-                            border: "1px solid rgba(26,188,176,0.2)",
+                            border: "1px solid rgba(124, 58, 237, 0.25)",
                           }}
                         >
                           Internship
@@ -146,9 +146,9 @@ export default function Experience() {
                     </div>
                   )}
 
-                  {/* Fourth Row: Detail text (e.g. CGPA / Percentage) in small white text */}
+                  {/* Fourth Row: Detail text */}
                   {exp.description && (
-                    <p style={{ fontSize: "0.85rem", color: "#E8EDF2", marginTop: "4px" }}>
+                    <p style={{ fontSize: "0.85rem", color: "#F3F4F6", marginTop: "4px" }}>
                       {exp.description}
                     </p>
                   )}
@@ -181,7 +181,7 @@ export default function Experience() {
                           <div className="freelance-card-header">
                             <div>
                               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                <h4 style={{ fontFamily: "var(--font-heading)", fontSize: "0.95rem", fontWeight: 700, color: "#E8EDF2" }}>
+                                <h4 style={{ fontFamily: "var(--font-heading)", fontSize: "0.95rem", fontWeight: 700, color: "#F3F4F6" }}>
                                   {proj.name}
                                 </h4>
                                 {proj.status && (
@@ -189,23 +189,23 @@ export default function Experience() {
                                     style={{
                                       fontSize: "0.7rem",
                                       fontWeight: 700,
-                                      color: proj.statusColor,
+                                      color: proj.status === "Completed" ? "#34D399" : "#F59E0B",
                                       padding: "2px 8px",
                                       borderRadius: "99px",
-                                      border: `1px solid ${proj.statusColor}40`,
-                                      background: "rgba(232,237,242,0.04)",
+                                      border: `1px solid ${proj.status === "Completed" ? "rgba(16, 185, 129, 0.3)" : "rgba(245, 158, 11, 0.3)"}`,
+                                      background: proj.status === "Completed" ? "rgba(16, 185, 129, 0.15)" : "rgba(245, 158, 11, 0.15)",
                                     }}
                                   >
                                     {proj.status}
                                   </span>
                                 )}
                               </div>
-                              <p style={{ fontSize: "0.8rem", color: "#8A9BB0", marginTop: "2px" }}>
+                              <p style={{ fontSize: "0.8rem", color: "#9CA3AF", marginTop: "2px" }}>
                                 Client: {proj.client}
                               </p>
                             </div>
                           </div>
-                          <p style={{ fontSize: "0.85rem", color: "#8A9BB0", lineHeight: 1.5, marginTop: "8px" }}>
+                          <p style={{ fontSize: "0.85rem", color: "#9CA3AF", lineHeight: 1.5, marginTop: "8px" }}>
                             {proj.work}
                           </p>
                           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "10px" }}>
@@ -215,10 +215,10 @@ export default function Experience() {
                                 style={{
                                   fontSize: "0.7rem",
                                   padding: "2px 8px",
-                                  background: "rgba(232,237,242,0.05)",
+                                  background: "rgba(124, 58, 237, 0.15)",
                                   borderRadius: "4px",
-                                  color: "#8A9BB0",
-                                  border: "1px solid rgba(232,237,242,0.1)",
+                                  color: "#A78BFA",
+                                  border: "1px solid rgba(124, 58, 237, 0.25)",
                                 }}
                               >
                                 {s}
