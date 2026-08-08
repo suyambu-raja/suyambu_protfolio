@@ -46,7 +46,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--nav-height);
+  scroll-padding-top: calc(var(--nav-height) + 24px);
 }
 
 body {
@@ -132,7 +132,7 @@ button {
 
 /* ===== Section Base & Backgrounds ===== */
 .section {
-  padding: calc(var(--spacing-unit) * 7) 0;
+  padding: calc(var(--spacing-unit) * 8) 0;
   background-color: var(--color-background);
 }
 
@@ -321,11 +321,16 @@ button {
 }
 
 @media (max-width: 767px) {
+  .hero-section {
+    padding-top: calc(var(--nav-height) + 36px);
+    padding-bottom: 40px;
+  }
   .hero-layout {
     flex-direction: column-reverse !important;
   }
   .hero-image-col {
-    margin-bottom: 8px;
+    margin-top: 16px;
+    margin-bottom: 12px;
   }
 }
 
@@ -1036,9 +1041,16 @@ button {
 .project-cards-container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  margin-top: 48px;
+  gap: 28px;
+  margin-top: 32px;
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .project-cards-container {
+    gap: 32px;
+    margin-top: 48px;
+  }
 }
 
 .project-card {

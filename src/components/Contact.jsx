@@ -314,7 +314,7 @@ export default function Contact() {
                 id="contact-name"
                 name="from_name"
                 type="text"
-                placeholder="John Doe"
+                placeholder="Enter your Name"
                 value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 style={inputStyle(!!errors.name)}
@@ -350,7 +350,7 @@ export default function Contact() {
                 id="contact-email"
                 name="from_email"
                 type="email"
-                placeholder="john@example.com"
+                placeholder="Enter your Email"
                 value={formData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
                 style={inputStyle(!!errors.email)}
